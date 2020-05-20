@@ -6,7 +6,7 @@
             parent::__construct();
         }
 
-        function addTask() {
+        public function addTask() {
 			//validate token
             $token = new token($this->p_data);
             $tknOut = $token->validateToken();
@@ -36,7 +36,7 @@
             return $out;
         }
 
-        function switchTaskStatus() {
+        public function switchTaskStatus() {
             $conn = new dataConnect();
             $conn->set_sp('IF_' . $this->p_result['interface'] . '_ADD_TASK', '{"taskId":' . $this->p_taskId . '}');
             $conn->exec();

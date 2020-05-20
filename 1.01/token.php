@@ -9,7 +9,7 @@
         private $p_params;
         private $p_token;
 
-        public $p_userId;
+        public $p_userName;
         public $p_registrationKey;
         public $p_acitve;
 
@@ -20,7 +20,7 @@
         public function getToken($Renewal = true) {
             if($Renewal == false) {
                 $inputParams = [
-                    'userId' => $this->p_params['body']['userId'],
+                    'userName' => $this->p_params['body']['userName'],
                     'registrationKey' => $this->p_params['body']['registrationKey'],
                     'masterKey' => $this->p_params['body']['masterKey']
                 ];
@@ -29,7 +29,7 @@
                 $conn->set_sp('IF_' . $this->p_params['header']['interface'] . '_VALIDATE_USER', json_encode($inputParams));
                 $out = $conn->exec();
 
-                if($out[0]['userId'] == '' || $out[0]['registrationKey'] == '') {
+                if($out[0]['masterKey'] == '' || $out[0]['registrationKey'] == '') {
                     new errorMsg(TOKEN_VALIDATE_ERROR, 'Token validate error.', $this->p_params);
                 }
 
@@ -43,7 +43,7 @@
             $tokenKey = $this->getTokenKey();
 
             $payload = [
-                'userId' => $this->p_userId,
+                'userName' => $this->p_userName,
                 'registrationKey' => $this->p_registrationKey,
                 'iat' => time(),
                 'exp' => time() + (TOKEN_EXP),
@@ -66,7 +66,7 @@
 
         public function validateToken() {
             if($this->p_params['header']['taskType'] == TASK_TYPE_TOKEN) {
-                $this->p_userId = $this->p_params['body']['userId'];
+                $this->p_userName = $this->p_params['body']['userName'];
                 $this->p_registrationKey = $this->p_params['body']['registrationKey'];
                 $this->p_token = $this->getToken(false);
             } else {
@@ -78,7 +78,7 @@
                         $this->p_token = $this->p_params['token'];
                         $payload = JWT::decode($this->p_token, $this->getTokenKey(), ['HS256']);
 
-                        $this->p_userId = $payload->userId;
+                        $this->p_userName = $payload->userName;
                         $this->p_registrationKey = $payload->registrationKey;
                         $this->p_token = $this->getToken();
 
@@ -89,7 +89,7 @@
 
             $out = [
                 'token' => $this->p_token,
-                'userId' => $this->p_userId,
+                'userName' => $this->p_userName,
                 'registrationKey' => $this->p_registrationKey
             ];
 

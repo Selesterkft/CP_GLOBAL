@@ -1,18 +1,18 @@
 <?php
-    class user {
+    class subscriber {
         private $p_params;
 
         public function __construct($param) {
             $this->p_params = $param;
         }
 
-        public function addUser() {
-            if($this->validateAddUser() == false) {
-                new errorMsg(USER_ADD_ERROR, 'You can not add user.', $this->p_params);
+        public function addSubscriber() {
+            if($this->validateAddSubscriber() == false) {
+                new errorMsg(SUBSCRIBER_ADD_ERROR, 'You can not add subscriber.', $this->p_params);
             }
 
-            if($this->userExists() == true) {
-                new errorMsg(USER_ADD_ERROR, 'This user has already been added.', $this->p_params);
+            if($this->subscriberExists() == true) {
+                new errorMsg(SUBSCRIBER_ADD_ERROR, 'This subscriber has already been added.', $this->p_params);
             }
 
             $keyGen = new keyGen(KEY_TYPE_MASTERKEY, 5);
@@ -28,7 +28,7 @@
             ];
 
             $conn = new dataConnect();
-            $conn->set_sp('IF_' . $this->p_params['inputParams']['header']['interface'] . '_ADD_USER', json_encode($inputJSON));
+            $conn->set_sp('IF_' . $this->p_params['inputParams']['header']['interface'] . '_ADD_SUBSCRIBER', json_encode($inputJSON));
             $out = $conn->exec();
 
             if($out[0]['result'] == 'NOK') {
@@ -38,17 +38,17 @@
             return $out[0]['result'];
         }
 
-        public function userExists() {
+        public function subscriberExists() {
             $conn = new dataConnect();
-            $conn->set_sp('IF_' . $this->p_params['inputParams']['header']['interface'] . '_USER_EXISTS', json_encode($this->p_params['inputParams']['body']));
+            $conn->set_sp('IF_' . $this->p_params['inputParams']['header']['interface'] . '_SUBSCRIBER_EXISTS', json_encode($this->p_params['inputParams']['body']));
             $out = $conn->exec();
 
             return $out[0]['result'];
         }
 
-        public function validateAddUser() {
+        public function validateAddSubscriber() {
             $conn = new dataConnect();
-            $conn->set_sp('IF_' . $this->p_params['inputParams']['header']['interface'] . '_VALIDATE_ADD_USER', json_encode($this->p_params['inputParams']['body']));
+            $conn->set_sp('IF_' . $this->p_params['inputParams']['header']['interface'] . '_VALIDATE_ADD_SUBSCRIBER', json_encode($this->p_params['inputParams']['body']));
             $out = $conn->exec();
 
             return $out[0]['result'];

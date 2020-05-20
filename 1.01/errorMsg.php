@@ -19,7 +19,7 @@
 			$errorMsg = json_encode(['error' => ['status' => $this->p_code, 'message' => $this->p_message]]);
             echo $errorMsg;
 
-            if(is_array($this->p_taskOut) == true) {
+            if(is_array($this->p_taskOut) == true && isset($this->p_taskOut['header']) == false) {
                 $status = new status($this->p_taskOut);
                 $status->switchStatus(status::CONST_ERROR, $errorMsg);
             }

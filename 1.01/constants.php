@@ -11,6 +11,7 @@
 	define('TASK_TYPE_TOKEN',						'TKN');
 	define('TASK_TYPE_TRANSPORT',					'TRNSP');
 	define('TASK_TYPE_SMS',							'SMS');
+	define('TASK_TYPE_SUBSCRIBER',					'SBS');
 	define('TASK_TYPE_USR',							'USR');
 
 	//SMS Message Type
@@ -25,7 +26,13 @@
 	define('WEB_SELTRANSPORT_DL',					'https://bit.ly/3bK5mYY');
 
 	//Token
-	define('TOKEN_EXP',								1800);
+	define('TOKEN_EXP',								18000);
+
+	//Key Gen
+	define('KEY_TYPE_MASTERKEY',					1);
+	define('KEY_TYPE_REGISTRATIONKEY',				2);
+	define('KEY_LENGHT_MASTERKEY',					16);
+	define('KEY_LENGHT_REGISTRATIONKEY',			8);
 
 	//Error Codes
 	define('REQUEST_METHOD_NOT_VALID',		        100);
@@ -34,6 +41,7 @@
 	define('REQUEST_WRONG_TASK_TYPE', 		        103);
     define('VALIDATE_PARAMETER_REQUIRED', 			104);
 	define('VALIDATE_PARAMETER_DATATYPE', 			105);
+	define('VALIDATE_PARAMETER_NOT_ACCEPTED_VALUE',	106);
 
 	define('SMS_INVALID_PROVIDER',					200);
 	define('SMS_INVALID_MESSAGE_TYPE',				201);
@@ -52,4 +60,8 @@
 	define('MISSING_TOKEN',							504);
 
 	define('STATUS_SWITCH_ERROR',					600);
+
+	define('SUBSCRIBER_ADD_ERROR',					700);
+
+	define('USER_ADD_ERROR',						800);
 ?>

@@ -20,7 +20,8 @@
             $out = $conn->exec();
             
             if(!isset($out)){
-                new errorMsg(STATUS_SWITCH_ERROR, 'Could not switch status code.', $this->p_taskOut, '');
+                echo 'Could not switch status code.';
+                die;
             }
 
             return $out;

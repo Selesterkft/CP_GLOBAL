@@ -32,7 +32,7 @@
 			$this->p_data = json_decode($this->p_request, true);
         }
 
-        public function validateParameter($fieldNameWithPath, $dataType, $required = true) {
+        public function validateParameter($fieldNameWithPath, $dataType, $required = true, $acceptedValues = '') {
 			$node = explode('/', $fieldNameWithPath);
 			$arr = $this->p_data;
 
@@ -84,7 +84,14 @@
 
                 default:
     				new errorMsg(VALIDATE_PARAMETER_DATATYPE, 'Datatype is not valid for ' . $fieldNameWithPath, '');
-					break;
+			}
+
+			if($acceptedValues != '') {
+				$values = explode(',', $acceptedValues);
+
+				if(isset($values[$value]) == false) {
+    				new errorMsg(VALIDATE_PARAMETER_NOT_ACCEPTED_VALUE, 'Not accepted value. Accepted values: ' . $acceptedValues, '');
+				}
 			}
 
 			$this->p_result[$tag] = (empty($value) == true ? $arr:$value);
