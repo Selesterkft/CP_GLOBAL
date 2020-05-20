@@ -51,7 +51,7 @@
 			if(is_array($arr) == false) {
 				$value = $arr;
 
-				if($required == true && empty($value) == true) {
+				if($required == true && isset($value) == false) {
 					new errorMsg(VALIDATE_PARAMETER_REQUIRED, $fieldNameWithPath . ' parameter is required.', '');
 				}
 			}else {
@@ -88,7 +88,6 @@
 
 			if($acceptedValues != '') {
 				$values = explode(',', $acceptedValues);
-
 				if(isset($values[$value]) == false) {
     				new errorMsg(VALIDATE_PARAMETER_NOT_ACCEPTED_VALUE, 'Not accepted value. Accepted values: ' . $acceptedValues, '');
 				}

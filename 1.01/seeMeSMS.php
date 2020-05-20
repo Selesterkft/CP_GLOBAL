@@ -5,12 +5,21 @@
         private $p_apiKey;
         private $p_params;
         private $p_messageText;
+        private $p_sender;
 
         public function __construct($params, $messageText) {
             $this->p_params = $params;
             $this->p_messageText = $messageText;
 
-            if($this->p_params['inputParams']['body']['apiKey'] == '-1') {
+            if(isset($this->p_params['inputParams']['body']['apiKey']) == true) {
+                $this->p_apiKey = $this->p_params['inputParams']['body']['apiKey'];
+            }
+
+            if(isset($this->p_params['inputParams']['body']['sender']) == true) {
+                $this->p_sender = $this->p_params['inputParams']['body']['sender'];
+            }
+
+            if($this->p_apiKey == '') {
                 $conn = new dataConnect();
                 $conn->set_sp('IF_' . $this->p_params['inputParams']['header']['interface'] . '_GET_PARAM', '{"ParamKey":"SEEME_KEY"}');
                 $out = $conn->exec();
@@ -20,8 +29,6 @@
                 }
 
                 $this->p_apiKey = $out[0]['ParamValueString'];
-            }else{
-                $this->p_apiKey = $this->p_params['inputParams']['body']['apiKey'];
             }
         }
 
@@ -34,7 +41,7 @@
                 $seeMe->sendSMS (
                                 $this->p_params['inputParams']['body']['phoneNumber'],  // destination
                                 $this->p_messageText,                                   // message
-                                $this->p_params['inputParams']['body']['sender']        // optional sender
+                                $this->p_sender                                         // optional sender
                 );
             
             $out = $seeMe->getResult();

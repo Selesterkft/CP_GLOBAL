@@ -1,10 +1,10 @@
 <?php 
 	//Data Type
-	define('BOOLEAN', 	'1');
-	define('INTEGER', 	'2');
-	define('FLOAT', 	'3');
-	define('STRING', 	'4');
-	define('BLOCK', 	'5');
+	define('BOOLEAN', 								'1');
+	define('INTEGER', 								'2');
+	define('FLOAT', 								'3');
+	define('STRING',							 	'4');
+	define('BLOCK', 								'5');
 
 	//Taks Type
 	define('TASK_TYPE_USER',						'USR');
@@ -13,12 +13,19 @@
 	define('TASK_TYPE_SMS',							'SMS');
 	define('TASK_TYPE_SUBSCRIBER',					'SBS');
 	define('TASK_TYPE_USR',							'USR');
+	define('TASK_TYPE_REGISTRATION',				'RGS');
+	define('TASK_TYPE_REGISTRATION_END',			'RGSE');
 
 	//SMS Message Type
 	define('SMS_FREETEXT',							'FREETEXT');
 	define('SMS_INVITE',							'INVITE');
 	define('SMS_REGISTRATION',						'REGISTRATION');
 	define('SMS_TRACKING',							'TRACKING');
+
+	//User Confirmation Type
+	define('USER_CONFIRMATION_NONE',				'NONE');
+	define('USER_CONFIRMATION_EMAIL',				'EMAIL');
+	define('USER_CONFIRMATION_SMS',					'SMS');
 
 	//Web link
 	// define('WEB_HOME',								'webandtrace.com');

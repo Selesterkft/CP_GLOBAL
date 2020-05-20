@@ -18,12 +18,8 @@
             $keyGen = new keyGen(KEY_TYPE_MASTERKEY, 5);
             $outKey1 = $keyGen->getKey();
 
-            $keyGen = new keyGen(KEY_TYPE_REGISTRATIONKEY, 5);
-            $outKey2 = $keyGen->getKey();
-
             $inputJSON = [
                 'masterKeys' => $outKey1,
-                'registrationKeys' => $outKey2,
                 'body' => $this->p_params['inputParams']['body']
             ];
 
@@ -52,6 +48,34 @@
             $out = $conn->exec();
 
             return $out[0]['result'];
+        }
+
+        public function registration() {
+            $keyGen = new keyGen(KEY_TYPE_REGISTRATIONKEY, 5);
+            $outKey2 = $keyGen->getKey();
+
+            $inputJSON = [
+                'registrationKeys' => $outKey2,
+                'body' => $this->p_params['inputParams']['body']
+            ];
+
+            $conn = new dataConnect();
+            $conn->set_sp('IF_' . $this->p_params['inputParams']['header']['interface'] . '_USER_REGISTRATION', json_encode($inputJSON));
+            $out = $conn->exec();
+
+            return $out[0];
+        }
+
+        public function registrationEnd($registrationKey = '') {
+            if(empty($registrationKey) == false) {
+                $this->p_params['inputParams']['body']['registrationKey'] = $registrationKey;
+            }
+
+            $conn = new dataConnect();
+            $conn->set_sp('IF_' . $this->p_params['inputParams']['header']['interface'] . '_USER_REGISTRATION_END', json_encode($this->p_params['inputParams']['body']));
+            $out = $conn->exec();
+
+            return $out[0];
         }
     }
 ?>
