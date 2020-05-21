@@ -14,7 +14,6 @@
             }
 
             $this->p_sql = '{call '.$procedureName.' (?)}';
-
             $this->p_params = array(
                                  array(&$inputJSON, SQLSRV_PARAM_IN)
             );
@@ -38,7 +37,7 @@
             sqlsrv_close($conn);
     
             if(json_decode($out) == null) {
-				new errorMsg(DATACONNECT_INVALID_PARAMETER, 'dataConnect ouptup parameter is not valid JSON (' . $out . ')', '');
+				new errorMsg(DATACONNECT_INVALID_PARAMETER, 'dataConnect output parameter is not valid JSON (' . $out . ')', '');
             }
 
             return json_decode($out, true);
