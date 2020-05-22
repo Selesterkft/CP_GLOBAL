@@ -19,7 +19,6 @@
 	//SMS Message Type
 	define('SMS_FREETEXT',							'FREETEXT');
 	define('SMS_INVITE',							'INVITE');
-	define('SMS_REGISTRATION',						'REGISTRATION');
 	define('SMS_TRACKING',							'TRACKING');
 
 	//User Confirmation Type
@@ -71,4 +70,6 @@
 	define('SUBSCRIBER_ADD_ERROR',					700);
 
 	define('USER_ADD_ERROR',						800);
+
+	define('USER_REGISTRATION_ERROR',				900);
 ?>

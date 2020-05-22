@@ -44,7 +44,7 @@
 
         public function validateAddUser() {
             $conn = new dataConnect();
-            $conn->set_sp('IF_' . $this->p_params['inputParams']['header']['interface'] . '_VALIDATE_ADD_USER', json_encode($this->p_params['inputParams']['body']));
+            $conn->set_sp('IF_' . $this->p_params['inputParams']['header']['interface'] . '_VALIDATE_ADD_USER', json_encode($this->p_params));
             $out = $conn->exec();
 
             return $out[0]['result'];

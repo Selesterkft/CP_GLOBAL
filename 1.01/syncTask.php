@@ -15,7 +15,7 @@
             $this->validateParameter('header/taskType', STRING);
             $this->validateParameter('header/interface', STRING);
             $this->validateParameter('header/sender', STRING);
-            $this->validateParameter('header/recepient', STRING);
+            $this->validateParameter('header/recipient', STRING);
             $this->validateParameter('body', BLOCK);
 
             $inputJSON = [
@@ -29,6 +29,7 @@
 
             $out = [
                 'token' => $tknOut['token'],
+                'verifiedUserName' => $token->p_userName,
                 'taskId' => $this->p_taskId,
                 'inputParams' => $this->p_data
             ];

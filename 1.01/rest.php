@@ -88,7 +88,7 @@
 
 			if($acceptedValues != '') {
 				$values = explode(',', $acceptedValues);
-				if(isset($values[$value]) == false) {
+				if(in_array($value, $values) == false) {
     				new errorMsg(VALIDATE_PARAMETER_NOT_ACCEPTED_VALUE, 'Not accepted value. Accepted values: ' . $acceptedValues, '');
 				}
 			}
