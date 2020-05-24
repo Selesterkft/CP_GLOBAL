@@ -8,15 +8,15 @@
 
         public function addTask() {
 			//validate token
-            $token = new token($this->p_data);
+            $token = new token( $this->p_data );
             $tknOut = $token->validateToken();
 
             //validate rest json
-            $this->validateParameter('header/taskType', STRING);
-            $this->validateParameter('header/interface', STRING);
-            $this->validateParameter('header/sender', STRING);
-            $this->validateParameter('header/recipient', STRING);
-            $this->validateParameter('body', BLOCK);
+            $this->validateParameter( 'header/taskType', STRING );
+            $this->validateParameter( 'header/interface', STRING );
+            $this->validateParameter( 'header/sender', STRING );
+            $this->validateParameter( 'header/recipient', STRING );
+            $this->validateParameter( 'body', BLOCK );
 
             $inputJSON = [
                 'token' => $tknOut,
@@ -24,8 +24,8 @@
             ];
 
             $conn = new dataConnect();
-            $conn->set_sp('IF_' . $this->p_result['interface'] . '_ADD_TASK', json_encode($inputJSON));
-            $this->p_taskId = $conn->exec()[0]['taskId'];
+            $conn->set_sp( 'IF_' . $this->p_result['interface'] . '_ADD_TASK', json_encode( $inputJSON ) );
+            $this->p_taskId = $conn->exec()['taskId'];
 
             $out = [
                 'token' => $tknOut['token'],
@@ -39,7 +39,7 @@
 
         public function switchTaskStatus() {
             $conn = new dataConnect();
-            $conn->set_sp('IF_' . $this->p_result['interface'] . '_ADD_TASK', '{"taskId":' . $this->p_taskId . '}');
+            $conn->set_sp( 'IF_' . $this->p_result['interface'] . '_ADD_TASK', '{"taskId":' . $this->p_taskId . '}' );
             $conn->exec();
         }
     }
