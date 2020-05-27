@@ -7,7 +7,8 @@
         }
 
         public function addTask() {
-			//validate token
+            //validate token
+            header( 'content-type: application/json' );
             $token = new token( $this->p_data );
             $tknOut = $token->validateToken();
 

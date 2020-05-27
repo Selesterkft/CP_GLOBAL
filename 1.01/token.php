@@ -48,7 +48,7 @@
                 'exp' => time() + ( TOKEN_EXP ),
             ];
 
-            return '{"token:"' . JWT::encode( $payload, $tokenKey, 'HS256' ) . '"}';
+            return ['token' =>JWT::encode( $payload, $tokenKey, 'HS256' )];
         }
 
         public function getTokenKey () {
