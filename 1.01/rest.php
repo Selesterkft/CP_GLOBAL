@@ -60,36 +60,38 @@
 				}
 			}
 
-			switch ( $dataType ) {
-				case BOOLEAN:
-					if( !is_bool( $value ) ) {
-						new errorMsg( VALIDATE_PARAMETER_DATATYPE, 'Datatype is not valid for ' . $fieldNameWithPath . '. It should be boolean.', '' );
+			if( isset ( $value ) ) {
+				switch ( $dataType ) {
+					case BOOLEAN:
+						if( !is_bool( $value ) ) {
+							new errorMsg( VALIDATE_PARAMETER_DATATYPE, 'Datatype is not valid for ' . $fieldNameWithPath . '. It should be boolean.', '' );
+						}
+						break;
+					case INTEGER:
+						if( !is_numeric( $value ) ) {
+							new errorMsg( VALIDATE_PARAMETER_DATATYPE, 'Datatype is not valid for ' . $fieldNameWithPath . '. It should be numeric.', '' );
+						}
+						break;
+	
+					case STRING:
+						if( !is_string( $value ) ) {
+							new errorMsg( VALIDATE_PARAMETER_DATATYPE, 'Datatype is not valid for ' . $fieldNameWithPath . '. It should be string.', '' );
+						}
+						break;
+	
+					case BLOCK:
+						//nothing to do
+						break;
+	
+					default:
+						new errorMsg( VALIDATE_PARAMETER_DATATYPE, 'Datatype is not valid for ' . $fieldNameWithPath, '' );
+				}
+	
+				if( $acceptedValues != '' ) {
+					$values = explode( ',', $acceptedValues );
+					if( in_array( $value, $values ) == false ) {
+						new errorMsg( VALIDATE_PARAMETER_NOT_ACCEPTED_VALUE, 'Not accepted value. Accepted values: ' . $acceptedValues, '' );
 					}
-					break;
-				case INTEGER:
-					if( !is_numeric( $value ) ) {
-						new errorMsg( VALIDATE_PARAMETER_DATATYPE, 'Datatype is not valid for ' . $fieldNameWithPath . '. It should be numeric.', '' );
-					}
-					break;
-
-				case STRING:
-					if( !is_string( $value ) ) {
-						new errorMsg( VALIDATE_PARAMETER_DATATYPE, 'Datatype is not valid for ' . $fieldNameWithPath . '. It should be string.', '' );
-					}
-					break;
-
-				case BLOCK:
-					//nothing to do
-					break;
-
-                default:
-    				new errorMsg( VALIDATE_PARAMETER_DATATYPE, 'Datatype is not valid for ' . $fieldNameWithPath, '' );
-			}
-
-			if( $acceptedValues != '' ) {
-				$values = explode( ',', $acceptedValues );
-				if( in_array( $value, $values ) == false ) {
-    				new errorMsg( VALIDATE_PARAMETER_NOT_ACCEPTED_VALUE, 'Not accepted value. Accepted values: ' . $acceptedValues, '' );
 				}
 			}
 
